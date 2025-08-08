@@ -1,10 +1,10 @@
 default: &default
-  adapter: mysql2
-  encoding: utf8mb4
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: root        # your MySQL username
-  password: root         # your MySQL password
-  host: localhost
+  username: <%= ENV["PGUSER"] || "root" %>
+  password: <%= ENV["PGPASSWORD"] || "root" %>
+  host: <%= ENV["PGHOST"] || "localhost" %>
 
 development:
   <<: *default
@@ -17,5 +17,3 @@ test:
 production:
   <<: *default
   database: todo_api_production
-  username: <%= ENV["TODO_API_DATABASE_USERNAME"] %>
-  password: <%= ENV["TODO_API_DATABASE_PASSWORD"] %>
